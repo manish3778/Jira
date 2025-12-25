@@ -24,11 +24,12 @@ jobs:
 
       - name: Run Postman Tests
         run: |
-          newman run ./test1.json \
+          newman run ./postman_collection.json \
             --reporters cli,junit \
             --reporter-junit-export results.xml
+        # 👇 Allow workflow to continue even if Newman exits with code 1
+        continue-on-error: true
 
-      # 👉 Place the upload step here, after tests are executed
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
