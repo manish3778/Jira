@@ -34,8 +34,8 @@ jobs:
       # Optional: commit the HTML report back into the repo
       - name: Commit HTML Report
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config --global user.name "manish3778"
+          git config --global user.email "manishkumar17@karunya.edu.in"
           git add postman-report.html
           git commit -m "Add Postman HTML test report"
           git push
