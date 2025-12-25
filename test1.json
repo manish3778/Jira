@@ -1,714 +1,155 @@
 {
 	"info": {
-		"_postman_id": "b5ef648f-a21e-47ad-8014-6561c02ecf77",
-		"name": "Simple Grocery Store API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39589948",
-		"_collection_link": "https://sahilkale1520-7542978.postman.co/workspace/My-Workspace~2c2d99c6-22a2-4b5b-8a13-f636fde6e0d6/collection/39589948-b5ef648f-a21e-47ad-8014-6561c02ecf77?action=share&source=collection_link&creator=39589948"
+		"_postman_id": "cf081967-3b08-4562-8402-73d9333a207a",
+		"name": "Order management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "SCRUM-6",
-			"item": [
-				{
-					"name": "init",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"allTestsPassed\", \"true\");\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts/:cartId",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts",
-								":cartId"
-							],
-							"variable": [
-								{
-									"key": "cartId",
-									"value": "{{cartId}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create a new cart Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let allTestsPassed = pm.environment.get(\"allTestsPassed\");\r",
-									"allTestsPassed = (allTestsPassed === null || allTestsPassed === undefined) ? true : (allTestsPassed === \"true\");\r",
-									"\r",
-									"try {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.test(\"Response field 'created' is true\", function () {\r",
-									"        pm.expect(responseData.created).to.eql(true);\r",
-									"    });\r",
-									"\r",
-									"    pm.test(\"Status code is 201\", function () {\r",
-									"        pm.expect(pm.response.code).to.eql(201);\r",
-									"    });\r",
-									"} catch (e) {\r",
-									"    allTestsPassed = false;\r",
-									"    throw e;\r",
-									"}\r",
-									"\r",
-									"pm.environment.set(\"allTestsPassed\", allTestsPassed.toString());\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get cart Copy",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"\r",
-									"pm.test(\"Pass the cart id\",()=>{\r",
-									"pm.environment.set(\"cartId\", \"QlpnzR1YWBvHH7mlYHSDo\") })"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let allTestsPassed = pm.environment.get(\"allTestsPassed\");\r",
-									"allTestsPassed = (allTestsPassed === null || allTestsPassed === undefined) ? true : (allTestsPassed === \"true\");\r",
-									"\r",
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    try {\r",
-									"        pm.expect(pm.response.code).to.eql(200); // or 200 depending on API\r",
-									"    } catch (e) {\r",
-									"        allTestsPassed = false;\r",
-									"        throw e;\r",
-									"    }\r",
-									"});\r",
-									"\r",
-									"pm.environment.set(\"allTestsPassed\", allTestsPassed.toString()); // ✅ this is critical\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts/:cartId",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts",
-								":cartId"
-							],
-							"variable": [
-								{
-									"key": "cartId",
-									"value": "{{cartId}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get cart items Copy",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"let allTestsPassed = pm.environment.get(\"allTestsPassed\");\r",
-									"allTestsPassed = (allTestsPassed === null || allTestsPassed === undefined) ? true : (allTestsPassed === \"true\");\r",
-									"\r",
-									"pm.test(\"Pass the cart id\",()=>{\r",
-									"    try {\r",
-									"        pm.environment.set(\"cartId\", \"QlpnzR1YWBvHH7mlYHSDo\");\r",
-									"    } catch (e) {\r",
-									"        allTestsPassed = false;\r",
-									"        throw e;\r",
-									"    }\r",
-									"});\r",
-									"\r",
-									"pm.environment.set(\"allTestsPassed\", allTestsPassed.toString()); // ✅ this is critical\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let allTestsPassed = pm.environment.get(\"allTestsPassed\");\r",
-									"allTestsPassed = (allTestsPassed === null || allTestsPassed === undefined) ? true : (allTestsPassed === \"true\");\r",
-									"\r",
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    try {\r",
-									"        pm.expect(pm.response.code).to.eql(201); // or 200 depending on API\r",
-									"    } catch (e) {\r",
-									"        allTestsPassed = false;\r",
-									"        throw e;\r",
-									"    }\r",
-									"});\r",
-									"\r",
-									"pm.environment.set(\"allTestsPassed\", allTestsPassed.toString()); // ✅ this is critical\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts/:cartId",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts",
-								":cartId"
-							],
-							"variable": [
-								{
-									"key": "cartId",
-									"value": "{{cartId}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Jira",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const allTestsPassed = pm.environment.get(\"allTestsPassed\") === \"true\";\r",
-									"const transitionId = allTestsPassed ? \"21\" : \"31\"; // 21 = success, 31 = fail\r",
-									"\r",
-									"const encodedCredentials = btoa(\r",
-									"    \"manishppl377@gmail.com:ATATT3xFfGF0TJRAggsu0fb5tA2zH58y5vfRvHtqTPlHCgjKRj4LECukGsueXSEZazdgTokmzQ4ZqQq5-APJ90oryC8cnTtw6r8_1WX2OjeObGVlshX5aUwDugodBSg_4n08e7C59Z69RB8pwaHUhJ9BP96YDUZzsaWErc7lPFSiWbf-RJK7VpM=2017B4F3\"\r",
-									");\r",
-									"\r",
-									"const locationStr = String(pm.execution.location || \"\");\r",
-									"const parts = locationStr.split(\",\").map(p => p.trim());\r",
-									"const issueKey = parts[parts.length - 2] || parts[0] || \"\";\r",
-									"\r",
-									"pm.sendRequest({\r",
-									"    url: `https://testjiramanish.atlassian.net/rest/api/latest/issue/${issueKey}/transitions`,\r",
-									"    method: \"POST\",\r",
-									"    header: {\r",
-									"        Authorization: `Basic ${encodedCredentials}`,\r",
-									"        \"Content-Type\": \"application/json\"\r",
-									"    },\r",
-									"    body: {\r",
-									"        mode: \"raw\",\r",
-									"        raw: JSON.stringify({ transition: { id: transitionId } })\r",
-									"    }\r",
-									"}, (err, res) => {\r",
-									"    if (err) {\r",
-									"        console.error(\"Error updating Jira:\", err);\r",
-									"    } else {\r",
-									"        pm.test(\"Jira transition request successful\", () => {\r",
-									"            pm.expect(res.code).to.eql(204);\r",
-									"        });\r",
-									"    }\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts/:cartId",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts",
-								":cartId"
-							],
-							"variable": [
-								{
-									"key": "cartId",
-									"value": "{{cartId}}"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
+			"name": "Generate reference",
 			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {},
-						"exec": [
-							""
-						]
-					}
-				},
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {},
+						"id": "7b811a57-7e26-4114-991b-c0a0cac9b24f",
 						"exec": [
-							""
-						]
+							"const response = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Should contain reference id\", function () {",
+							"    pm.expect(response.uuid).to.exist;",
+							"});",
+							"",
+							"pm.globals.set(\"referenceId\", response.uuid);"
+						],
+						"type": "text/javascript"
 					}
-				}
-			]
-		},
-		{
-			"name": "SCRUM-7",
-			"item": [
-				{
-					"name": "init",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"allTestsPassed\", \"true\");\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts/:cartId",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts",
-								":cartId"
-							],
-							"variable": [
-								{
-									"key": "cartId",
-									"value": "{{cartId}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create a new cart",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let allTestsPassed = pm.environment.get(\"allTestsPassed\");\r",
-									"allTestsPassed = (allTestsPassed === null || allTestsPassed === undefined) ? true : (allTestsPassed === \"true\");\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    try {\r",
-									"        pm.expect(pm.response.code).to.eql(201); // correct expected value\r",
-									"    } catch (e) {\r",
-									"        allTestsPassed = false;\r",
-									"        throw e; // re-throw so Postman marks test as failed\r",
-									"    }\r",
-									"});\r",
-									"\r",
-									"pm.environment.set(\"allTestsPassed\", allTestsPassed.toString());\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get cart",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"\r",
-									"pm.test(\"Pass the cart id\",()=>{\r",
-									"pm.environment.set(\"cartId\", \"QlpnzR1YWBvHH7mlYHSDo\") })"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let allTestsPassed = pm.environment.get(\"allTestsPassed\");\r",
-									"allTestsPassed = (allTestsPassed === null || allTestsPassed === undefined) ? true : (allTestsPassed === \"true\");\r",
-									"\r",
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    try {\r",
-									"        pm.expect(pm.response.code).to.eql(200); // or 200 depending on API\r",
-									"    } catch (e) {\r",
-									"        allTestsPassed = false;\r",
-									"        throw e;\r",
-									"    }\r",
-									"});\r",
-									"\r",
-									"pm.environment.set(\"allTestsPassed\", allTestsPassed.toString()); // ✅ this is critical\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts/:cartId",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts",
-								":cartId"
-							],
-							"variable": [
-								{
-									"key": "cartId",
-									"value": "{{cartId}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get cart items",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"let allTestsPassed = pm.environment.get(\"allTestsPassed\");\r",
-									"allTestsPassed = (allTestsPassed === null || allTestsPassed === undefined) ? true : (allTestsPassed === \"true\");\r",
-									"\r",
-									"// Test for Status Code 200\r",
-									"pm.test(\"Cart ID\", function () {\r",
-									"    try {\r",
-									"        pm.environment.set(\"cartId\", \"Gl7UGCrH_3NIpKl2guIom\");\r",
-									"        \r",
-									"    } catch (e) {\r",
-									"        allTestsPassed = false;\r",
-									"    }\r",
-									"});\r",
-									"\r",
-									"pm.environment.set(\"allTestsPassed\", allTestsPassed.toString());\r",
-									"\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"let allTestsPassed = pm.environment.get(\"allTestsPassed\");\r",
-									"allTestsPassed = (allTestsPassed === null || allTestsPassed === undefined) ? true : (allTestsPassed === \"true\");\r",
-									"\r",
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    try {\r",
-									"        pm.expect(pm.response.code).to.eql(200); // or 200 depending on API\r",
-									"    } catch (e) {\r",
-									"        allTestsPassed = false;\r",
-									"        throw e;\r",
-									"    }\r",
-									"});\r",
-									"\r",
-									"pm.environment.set(\"allTestsPassed\", allTestsPassed.toString()); // ✅ this is critical\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts/:cartId/items",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts",
-								":cartId",
-								"items"
-							],
-							"variable": [
-								{
-									"key": "cartId",
-									"value": "{{cartId}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Jira",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const allTestsPassed = pm.environment.get(\"allTestsPassed\") === \"true\";\r",
-									"const transitionId = allTestsPassed ? \"21\" : \"31\"; // 21 = success, 31 = fail\r",
-									"\r",
-									"const encodedCredentials = btoa(\r",
-									"    \"manishppl377@gmail.com:ATATT3xFfGF0TJRAggsu0fb5tA2zH58y5vfRvHtqTPlHCgjKRj4LECukGsueXSEZazdgTokmzQ4ZqQq5-APJ90oryC8cnTtw6r8_1WX2OjeObGVlshX5aUwDugodBSg_4n08e7C59Z69RB8pwaHUhJ9BP96YDUZzsaWErc7lPFSiWbf-RJK7VpM=2017B4F3\"\r",
-									");\r",
-									"\r",
-									"const locationStr = String(pm.execution.location || \"\");\r",
-									"const parts = locationStr.split(\",\").map(p => p.trim());\r",
-									"const issueKey = parts[parts.length - 2] || parts[0] || \"\";\r",
-									"\r",
-									"pm.sendRequest({\r",
-									"    url: `https://testjiramanish.atlassian.net/rest/api/latest/issue/${issueKey}/transitions`,\r",
-									"    method: \"POST\",\r",
-									"    header: {\r",
-									"        Authorization: `Basic ${encodedCredentials}`,\r",
-									"        \"Content-Type\": \"application/json\"\r",
-									"    },\r",
-									"    body: {\r",
-									"        mode: \"raw\",\r",
-									"        raw: JSON.stringify({ transition: { id: transitionId } })\r",
-									"    }\r",
-									"}, (err, res) => {\r",
-									"    if (err) {\r",
-									"        console.error(\"Error updating Jira:\", err);\r",
-									"    } else {\r",
-									"        pm.test(\"Jira transition request successful\", () => {\r",
-									"            pm.expect(res.code).to.eql(204);\r",
-									"        });\r",
-									"    }\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/carts/:cartId",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts",
-								":cartId"
-							],
-							"variable": [
-								{
-									"key": "cartId",
-									"value": "{{cartId}}"
-								}
-							]
-						}
-					},
-					"response": []
 				}
 			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {},
-						"exec": [
-							""
-						]
-					}
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
+				"url": {
+					"raw": "httpbin.org/uuid",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"uuid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create order",
+			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {},
+						"id": "53620a6d-32f6-4bfd-9263-69c06ed57e37",
 						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"if (pm.iterationData.get(\"isValid\")) {",
+							"    pm.test(\"Should contain the reference id\", function () {",
+							"        pm.expect(response.json.referenceId).to.eql(pm.globals.get(\"referenceId\"));",
+							"    });",
+							"    ",
+							"    pm.test(\"Should contain the customer id\", function () {",
+							"        pm.expect(response.json.customerId).to.eql(pm.iterationData.get(\"customerId\"));",
+							"    });",
+							"    ",
+							"    pm.test(\"Should contain the product id\", function () {",
+							"        pm.expect(response.json.productId).to.eql(pm.iterationData.get(\"productId\"));",
+							"    });    ",
+							"} else {",
+							"    pm.test(\"Should not be valid\", function () {",
+							"       pm.expect(response.json).to.be.null;",
+							"    });",
+							"}",
+							"",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
-			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"requests": {},
-				"exec": [
-					""
-				]
-			}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referenceId\": \"{{referenceId}}\",\n\t\"customerId\": {{customerId}},\n\t\"productId\": {{productId}}\n}"
+				},
+				"url": {
+					"raw": "httpbin.org/post",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"requests": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "baseUrl",
-			"value": "https://simple-grocery-store-api.click"
-		},
-		{
-			"key": "accessToken",
-			"value": "YOUR ACCESS TOKEN"
-		},
-		{
-			"key": "cartId",
-			"value": ""
-		},
-		{
-			"key": "runJiraUpdate",
-			"value": ""
+			"name": "Check status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "53620a6d-32f6-4bfd-9263-69c06ed57e37",
+						"exec": [
+							"pm.test(\"Status code is \" + pm.iterationData.get('expectedStatus'), function () {",
+							"    pm.response.to.have.status(pm.iterationData.get('expectedStatus'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "httpbin.org/status/{{status}}",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"status",
+						"{{status}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
