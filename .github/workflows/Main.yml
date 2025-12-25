@@ -24,7 +24,7 @@ jobs:
 
       - name: Run Postman Tests
         run: |
-          newman run ./postman_collection.json \
+          newman run ./test1.json \
             --reporters cli,junit \
             --reporter-junit-export results.xml
         # 👇 Allow workflow to continue even if Newman exits with code 1
