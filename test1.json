@@ -1,155 +1,504 @@
 {
 	"info": {
-		"_postman_id": "cf081967-3b08-4562-8402-73d9333a207a",
-		"name": "Order management",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "c6ac348e-1859-4f66-928d-5588b8b604ee",
+		"name": "Simple Grocery Store API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2354738"
 	},
 	"item": [
 		{
-			"name": "Generate reference",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "7b811a57-7e26-4114-991b-c0a0cac9b24f",
-						"exec": [
-							"const response = pm.response.json();",
-							"",
-							"",
-							"pm.test(\"Should contain reference id\", function () {",
-							"    pm.expect(response.uuid).to.exist;",
-							"});",
-							"",
-							"pm.globals.set(\"referenceId\", response.uuid);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
+			"name": "API Status",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "httpbin.org/uuid",
+					"raw": "{{baseUrl}}/status",
 					"host": [
-						"httpbin",
-						"org"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"uuid"
+						"status"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Create order",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "53620a6d-32f6-4bfd-9263-69c06ed57e37",
-						"exec": [
-							"const response = pm.response.json();",
-							"",
-							"if (pm.iterationData.get(\"isValid\")) {",
-							"    pm.test(\"Should contain the reference id\", function () {",
-							"        pm.expect(response.json.referenceId).to.eql(pm.globals.get(\"referenceId\"));",
-							"    });",
-							"    ",
-							"    pm.test(\"Should contain the customer id\", function () {",
-							"        pm.expect(response.json.customerId).to.eql(pm.iterationData.get(\"customerId\"));",
-							"    });",
-							"    ",
-							"    pm.test(\"Should contain the product id\", function () {",
-							"        pm.expect(response.json.productId).to.eql(pm.iterationData.get(\"productId\"));",
-							"    });    ",
-							"} else {",
-							"    pm.test(\"Should not be valid\", function () {",
-							"       pm.expect(response.json).to.be.null;",
-							"    });",
-							"}",
-							"",
-							""
-						],
-						"type": "text/javascript"
-					}
+			"name": "Get all products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/products?results=20",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "fresh-produce",
+							"disabled": true
+						},
+						{
+							"key": "results",
+							"value": "20"
+						}
+					]
 				}
-			],
+			},
+			"response": []
+		},
+		{
+			"name": "Get single product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/products/:productId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products",
+						":productId"
+					],
+					"variable": [
+						{
+							"key": "productId",
+							"value": "8739"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/carts",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/carts/:cartId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cart items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/carts/:cartId/items",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update quantity",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"quantity\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						":itemId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						},
+						{
+							"key": "itemId",
+							"value": "148147531"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Replace product in cart",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": 4643,\n    \"quantity\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						":itemId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						},
+						{
+							"key": "itemId",
+							"value": "148147531"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete item in cart",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						":itemId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						},
+						{
+							"key": "itemId",
+							"value": "148147531"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add item to cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"productId\": 4646\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carts/:cartId/items/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						""
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register API client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"clientName\": \"Postman on Valentin's computer\",\n   \"clientEmail\": \"valentin_test2@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api-clients",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api-clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an order",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"referenceId\": \"{{referenceId}}\",\n\t\"customerId\": {{customerId}},\n\t\"productId\": {{productId}}\n}"
+					"raw": "{\n    \"cartId\": \"GDMO_XOL9EIOfjiV_rYfp\",\n    \"customerName\": \"{{$randomFullName}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "httpbin.org/post",
+					"raw": "{{baseUrl}}/orders",
 					"host": [
-						"httpbin",
-						"org"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"post"
+						"orders"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Check status",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "53620a6d-32f6-4bfd-9263-69c06ed57e37",
-						"exec": [
-							"pm.test(\"Status code is \" + pm.iterationData.get('expectedStatus'), function () {",
-							"    pm.response.to.have.status(pm.iterationData.get('expectedStatus'));",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
+			"name": "Get all orders",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update order",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "{\n \"comment\": \"Pickup at 2PM.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "httpbin.org/status/{{status}}",
+					"raw": "{{baseUrl}}/orders/:orderId",
 					"host": [
-						"httpbin",
-						"org"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"status",
-						"{{status}}"
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "CYJ_mZtnm5CdeMeQxR9Vd"
+						}
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Delete order",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "CYJ_mZtnm5CdeMeQxR9Vd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single order",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "CYJ_mZtnm5CdeMeQxR9Vd"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://simple-grocery-store-api.click"
+		},
+		{
+			"key": "accessToken",
+			"value": "YOUR ACCESS TOKEN"
+		},
+		{
+			"key": "cartId",
+			"value": ""
 		}
 	]
 }
