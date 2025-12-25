@@ -19,19 +19,27 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Newman
-        run: npm install -g newman
+      - name: Install Newman + HTML reporter
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
 
       - name: Run Postman Tests
         run: |
           newman run ./test1.json \
-            --reporters cli,junit \
-            --reporter-junit-export results.xml
-        # 👇 Allow workflow to continue even if Newman exits with code 1
+            --reporters cli,htmlextra \
+            --reporter-htmlextra-export ./postman-report.html
         continue-on-error: true
 
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: postman-results
-          path: results.xml
+      # Optional: commit the HTML report back into the repo
+      - name: Commit HTML Report
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add postman-report.html
+          git commit -m "Add Postman HTML test report"
+          git push
+          
+          git add postman-report.html
+          git commit -m "Add Postman HTML test report"
+          git push
